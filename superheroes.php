@@ -62,11 +62,37 @@ $superheroes = [
       "biography" => "Notably powerful, Wanda Maximoff has fought both against and with the Avengers, attempting to hone her abilities and do what she believes is right to help the world.",
   ], 
 ];
+    $hero = isset($_GET['hero']) ? $_GET['hero'] : '';
+    $found= False;
+    /*foreach ($superheroes as $superhero){
+
+        if ($superhero['name']== $hero or $superhero['alias']== $hero ){
+           echo ($name= $superhero['name']);
+           echo($alias = $superhero['alias']);
+           echo($bio = $superhero['biography']);
+        }
+    }*/
 
 ?>
+<?php if (!empty($hero)): ?>
+    <?php foreach ($superheroes as $superhero): ?>
+        <?php if ($superhero['name'] == $hero || $superhero['alias'] == $hero): ?>
+            <h3><?= htmlspecialchars($superhero['alias']); ?></h3>
+            <h4><?= htmlspecialchars($superhero['name']); ?></h4>
+            <p><?= htmlspecialchars($superhero['biography']); ?></p>
+            <? $found= TRUE;?>
+        <?php endif; ?>
+    <?php endforeach; ?>
+    <?php if($found == False):?>
+            <?php echo"Superhero not Found"; ?>
+    <?php endif; ?>
+<?php else: ?>
+    <ul>
+        <?php foreach ($superheroes as $superhero): ?>
+            <li><?= htmlspecialchars($superhero['alias']); ?></li>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; ?>
 
-<ul>
-<?php foreach ($superheroes as $superhero): ?>
-  <li><?= $superhero['alias']; ?></li>
-<?php endforeach; ?>
-</ul>
+
+    
